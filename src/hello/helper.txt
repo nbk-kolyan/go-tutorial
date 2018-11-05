@@ -1,0 +1,117 @@
+https://go-tour-ru-ru.appspot.com/moretypes/16 -- range
+
+1) 	var i, j int = 1, 2  // declare vars
+
+2)  var (
+	ToBe   bool       = false
+	MaxInt uint64     = 1<<64 - 1
+	z      complex128 = cmplx.Sqrt(-5 + 12i)
+
+3) PROVEDENIE K TIPY	
+	f := float64(i)
+	u := uint(f)
+
+4)const Pi = 3.14
+
+5)working with numbers
+	// Create a huge number by shifting a 1 bit left 100 places.
+	// In other words, the binary number that is 1 followed by 100 zeroes.
+	Big = 1 << 100
+	// Shift it right again 99 places, so we end up with 1<<1, or 2.
+	Small = Big >> 99
+
+	1 << uint(i) // == 2**i smeshenie i na bite, ili 2 v stepeni i
+
+6) defer 
+	Оператор defer откладывает выполнение функции до того момента, как произойдет возврат из окружающей функции.
+	Отложенные вызовы функций сохраняются в стеке   LIFO
+
+7)	p := &i         // point to i
+	*p = 21         // set i through the pointer
+
+8)struct это коллекция полей.
+	type Vertex struct {
+		X int
+		Y int
+	}
+	v.X = 4 - Доступ к полям структуры производится с помощью точки.
+	v2 = Vertex{X: 1}  // Y:0 is implicit      - - zadaet tolko X
+
+9)Array + Slice
+	var a [2]string.  //def arr of 2 elem of string
+
+10)Slices 	
+	primes := [6]int{2, 3, 5, 7, 11, 13}
+
+	var s []int = primes[1:4]       -----  [3 5 7]        -- [s kakaogo : po kakoi]
+	len(s) - size
+	cap(s) - max size - caapacity
+
+		// Extend its length.
+	s = s[:4]
+		// Drop its first two values.
+	s = s[2:]	
+	if s == nil --check that s is empty
+	b := make([]int, 0, 5) // len(b)=0, cap(b)=5 --make slice
+	s = append(s, 2, 3, 4). // add elements to s slice
+	for i, v := range s // - iteration throw the slice s i - index, v - value  
+	for i := range pow  // esli v cikle nujen tolko index
+	for _, value := range pow   // esli v cikle nujen tolko value
+
+11)maps - Карта ассоциирует ключ и значени
+	m = make(map[string]Vertex) - make map with string keys to Vortex values
+	m["Bell Labs"] = Vertex{
+		40.68433, -74.39967,
+	}
+	var m = map[string]Vertex{
+		"Bell Labs": {40.68433, -74.39967},
+		"Google":    {37.42202, -122.08408},
+	}
+
+	set key in the map  =>. m[key] = elem
+	get key from the map => elem = m[key]
+	del => delete(m, key)
+	check that key exists in the map => elem, ok = m[key]. (ok - true or false)
+
+12) functions is arguments
+	//get function as a arg and send to it 3,4
+	func compute(fn func(float64, float64) float64) float64 {
+		return fn(3, 4)
+	}
+
+13)methods for types - метод - это всего лишь функция, для которой указан получатель.
+	//declare
+	func (v Vertex) Abs() float64 {
+		return math.Sqrt(v.X*v.X + v.Y*v.Y)
+	}
+	//call
+		v := Vertex{3, 4}
+		fmt.Println(v.Abs())
+		//В этом примере Abs является обычной функцией с тем же функционалом.
+	func Abs(v Vertex) float64 {
+		return math.Sqrt(v.X*v.X + v.Y*v.Y)
+	}
+
+	Methods are ofen use with pointers on receiver, for chnaging it value
+	func (v *Vertex) Abs() float64 {
+	p := &v
+	p.Abs() compiles as (*p).Abs()  -- no error
+
+14)Тип интерфейс определяется набором сигнатур его методов.
+	type Abser interface {
+		Abs() float64
+	}
+	var a Abser
+
+	func do(i interface{}) {.    //used when we dont know what kind of type will send to func
+	do(21)
+	do("we") 
+
+
+
+
+
+*****************Math package***********************
+math.Abs - module
+math.Pow(x, y) - vozvesti x v stepen y
+
